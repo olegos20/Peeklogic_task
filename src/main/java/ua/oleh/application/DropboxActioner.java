@@ -9,15 +9,34 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class DropboxActioner {
-    private  String token ="Bearer sl.AQ9Nzx7NMfnT2iG5FpomBAI5_BApLNdeFQAngjcq9YCztkFm-JNJD4omSiePtYyyJL5dla241ECcNM2kXAuC6lOdG13fv5CkL8CWkwd-m3XBuVSQWjxxcuzPzzreO1CPmiZkGFUs";
-    public void createFolder(String path) throws Exception {
+    String token ;
+    String path;
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+
+    public void createFolder(String path, String token) throws Exception {
 
         try {
             URL url = new URL("https://api.dropboxapi.com/2/files/create_folder");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            String parameters = "{\"path\": \"" + path + "\"}";
+            String parameters = "{\"path\": \"" +"/"+ path + "\"}";
             conn.setRequestProperty("Content-Type", "application/json");
-            conn.addRequestProperty ("Authorization", token);
+            conn.addRequestProperty ("Authorization", "Bearer "+token);
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
             DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
@@ -46,5 +65,5 @@ public class DropboxActioner {
 
             e.printStackTrace();
         }
-    }
+   }
 }
